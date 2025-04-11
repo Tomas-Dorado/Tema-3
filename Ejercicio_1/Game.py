@@ -20,6 +20,7 @@ class HanoiGame:
         ]
         self.colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (255, 165, 0)]
         self.init_disks()
+        self.move_count = 0  # Contador de movimientos
 
     def init_disks(self):
         for i in range(self.num_disks, 0, -1):
@@ -31,11 +32,18 @@ class HanoiGame:
         self.screen.fill((255, 255, 255))
         for tower in self.towers:
             tower.draw(self.screen)
+        self.display_move_count()  # Mostrar el contador de movimientos
         pygame.display.flip()
+
+    def display_move_count(self):
+        font = pygame.font.Font(None, 36)
+        text = font.render(f"Movimientos: {self.move_count}", True, (0, 0, 0))
+        self.screen.blit(text, (10, 10))
 
     def move_disk(self, source, target):
         disk = self.towers[source].remove_disk()
         self.towers[target].add_disk(disk)
+        self.move_count += 1  # Incrementar el contador de movimientos
         self.draw()
         time.sleep(0.5)
 
