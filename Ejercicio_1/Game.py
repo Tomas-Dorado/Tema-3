@@ -51,8 +51,10 @@ class HanoiGame:
         self.draw()
         time.sleep(1)
         self.solve_hanoi(self.num_disks, 0, 2, 1)
-        while True:
+        running = True
+        while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
+                    running = False
+        pygame.quit()
+        sys.exit()

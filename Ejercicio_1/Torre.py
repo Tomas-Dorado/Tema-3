@@ -7,19 +7,18 @@ class Torre:
         self.disks = []
 
     def add_disk(self, disk):
+        if self.disks and self.disks[-1].width < disk.width:
+            raise ValueError("No se puede colocar un disco más grande sobre uno más pequeño.")
         self.disks.append(disk)
 
     def remove_disk(self):
-        return self.disks.pop() if self.disks else None
+        if not self.disks:
+            raise ValueError("No hay discos para remover.")
+        return self.disks.pop()
 
     def draw(self, screen):
-        # Dibuja la torre
-        pygame.draw.rect(screen, (0, 0, 0), (self.x - 5, self.y - 200, 10, 200))
-        # Dibuja los discos
-        for i, disk in enumerate(reversed(self.disks)):
+        pygame.draw.rect(screen, (0, 0, 0), (self.x - 5, self.y - 150, 10, 150))
+        for i, disk in enumerate(self.disks):  # Iterate normally to reverse the order
             disk_x = self.x - disk.width // 2
             disk_y = self.y - 20 * (i + 1)
             pygame.draw.rect(screen, disk.color, (disk_x, disk_y, disk.width, 20))
-            
-    def __str__(self):
-        return f"Torre(x={self.x}, y={self.y}, disks={self.disks})"
