@@ -1,112 +1,87 @@
 import pygame
+import sys
 import time
 
-# Configuración de colores
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-BLUE = (0, 0, 255)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
+# Clase para representar un disco
 
-# Configuración de la pantalla
-WIDTH, HEIGHT = 800, 600
-FPS = 60
 
-# Clase Nodo para representar cada piedra
-class Nodo:
-    def __init__(self, size):
-        self.size = size
-        self.next = None
-
-# Clase Torre para representar cada columna
-class Torre:
+# Clase para representar una torre
+class Tower:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.stack = None
-        self.height = 0
+        self.disks = []
 
-    def push(self, size):
-        new_node = Nodo(size)
-        new_node.next = self.stack
-        self.stack = new_node
-        self.height += 1
+    def add_disk(self, disk):
+        self.disks.append(disk)
 
-    def pop(self):
-        if self.stack is None:
-            return None
-        size = self.stack.size
-        self.stack = self.stack.next
-        self.height -= 1
-        return size
+    def remove_disk(self):
+        return self.disks.pop() if self.disks else None
 
     def draw(self, screen):
         # Dibuja la torre
-        pygame.draw.rect(screen, BLACK, (self.x - 10, self.y - 200, 20, 400))
-        # Dibuja las piedras
-        current = self.stack
-        offset = 0
-        while current:
-            width = current.size * 10
-            pygame.draw.rect(screen, BLUE, (self.x - width // 2, self.y + 200 - offset - 20, width, 20))
-            current = current.next
-            offset += 20
+        pygame.draw.rect(screen, (0, 0, 0), (self.x - 5, self.y - 200, 10, 200))
+        # Dibuja los discos
+        for i, disk in enumerate(reversed(self.disks)):
+            disk_x = self.x - disk.width // 2
+            disk_y = self.y - 20 * (i + 1)
+            pygame.draw.rect(screen, disk.color, (disk_x, disk_y, disk.width, 20))
 
-# Clase Hanoi para manejar la lógica del juego
-class Hanoi:
-    def __init__(self, num_piedras):
-        self.num_piedras = num_piedras
-        self.torres = [Torre(200, HEIGHT // 2), Torre(400, HEIGHT // 2), Torre(600, HEIGHT // 2)]
-        for size in range(num_piedras, 0, -1):
-            self.torres[0].push(size)
-        self.moves = []
+# Clase principal para resolver y visualizar el problema
+class HanoiGame:
+    def __init__(self, num_disks):
+        pygame.init()
+        self.screen = pygame.display.set_mode((800, 400))
+        pygame.display.set_caption("Torres de Hanói")
+        self.clock = pygame.time.Clock()
+        self.num_disks = num_disks
+        self.towers = [
+            Tower(200, 300),
+            Tower(400, 300),
+            Tower(600, 300)
+        ]
+        self.colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (255, 165, 0)]
+        self.init_disks()
 
-    def solve(self, n, source, target, auxiliary):
+    def init_disks(self):
+        for i in range(self.num_disks, 0, -1):
+            width = i * 20
+            color = self.colors[i % len(self.colors)]
+            self.towers[0].add_disk(Disk(width, color))
+
+    def draw(self):
+        self.screen.fill((255, 255, 255))
+        for tower in self.towers:
+            tower.draw(self.screen)
+        pygame.display.flip()
+
+    def move_disk(self, source, target):
+        disk = self.towers[source].remove_disk()
+        self.towers[target].add_disk(disk)
+        self.draw()
+        time.sleep(0.5)
+
+    def solve_hanoi(self, n, source, target, auxiliary):
         if n == 1:
-            self.moves.append((source, target))
+            self.move_disk(source, target)
             return
-        self.solve(n - 1, source, auxiliary, target)
-        self.moves.append((source, target))
-        self.solve(n - 1, auxiliary, target, source)
+        self.solve_hanoi(n - 1, source, auxiliary, target)
+        self.move_disk(source, target)
+        self.solve_hanoi(n - 1, auxiliary, target, source)
 
-    def execute_moves(self, screen):
-        for move in self.moves:
-            source, target = move
-            size = self.torres[source].pop()
-            self.torres[target].push(size)
-            self.draw(screen)
-            pygame.display.flip()
-            time.sleep(0.5)
+    def run(self):
+        self.draw()
+        time.sleep(1)
+        self.solve_hanoi(self.num_disks, 0, 2, 1)
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
 
-    def draw(self, screen):
-        screen.fill(WHITE)
-        for torre in self.torres:
-            torre.draw(screen)
+# Número de discos
+num_disks = 4
 
-# Inicialización de pygame
-pygame.init()
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Torre de Hanói")
-clock = pygame.time.Clock()
-
-# Configuración inicial
-num_piedras = 5
-hanoi = Hanoi(num_piedras)
-hanoi.solve(num_piedras, 0, 2, 1)
-
-# Bucle principal
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-    hanoi.draw(screen)
-    pygame.display.flip()
-    clock.tick(FPS)
-
-    # Ejecutar los movimientos una vez
-    hanoi.execute_moves(screen)
-    running = False
-
-pygame.quit()
+# Ejecutar el juego
+game = HanoiGame(num_disks)
+game.run()
