@@ -10,7 +10,7 @@ def main():
         elif opcion == 2:
             subprocess.run(["python", os.path.join("Ejercicio_2", "main.py")])
         elif opcion == 3:
-            print("Ejercicio 3 no implementado.")
+            subprocess.run(["python", os.path.join("Ejercicio_3", "main.py")])
         elif opcion == 4:
             print("Ejercicio 4 no implementado.")
         elif opcion == 0:
