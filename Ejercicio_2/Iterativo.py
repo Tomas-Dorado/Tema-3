@@ -1,4 +1,6 @@
 def determinante_iterativo(matriz):
+    '''
+    Calcula el determinante de una matriz cuadrada utilizando un método iterativo.'''
     if len(matriz) != 3 or len(matriz[0]) != 3:
         raise ValueError("Este método solo funciona para matrices 3x3.")
     
