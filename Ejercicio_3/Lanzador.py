@@ -4,9 +4,10 @@ def lanzador():
         {"nombre": "Titán del Cosmos", "longitud": 200, "tripulantes": 15, "pasajeros": 100},
         {"nombre": "GX-1 Explorer", "longitud": 90, "tripulantes": 5, "pasajeros": 6},
         {"nombre": "GX-2 Voyager", "longitud": 110, "tripulantes": 8, "pasajeros": 10},
-        {"nombre": "Estrella Fugaz", "longitud": 150, "tripulantes": 12, "pasajeros": 80},
+        {"nombre": "Cometa Veloz", "longitud": 150, "tripulantes": 12, "pasajeros": 80},
         {"nombre": "Nebulosa Andrómeda", "longitud": 180, "tripulantes": 20, "pasajeros": 120},
         {"nombre": "Aurora Cósmica", "longitud": 130, "tripulantes": 7, "pasajeros": 40},
+        {"nombre": "Nebulosa Andrómeda", "longitud": 200, "tripulantes": 30, "pasajeros": 60},
     ]
 
     # Ordenar la lista de naves por nombre ascendente y longitud descendente
@@ -30,6 +31,7 @@ def lanzador():
     # Mostrar información de la nave más pequeña y la más grande
     nave_mas_pequena = min(naves, key=lambda x: x["longitud"])
     nave_mas_grande = max(naves, key=lambda x: x["longitud"])
+    
     print("Naves ordenadas por nombre ascendente y longitud descendente:")
     for nave in naves_ordenadas:
         print(nave)
