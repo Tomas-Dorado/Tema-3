@@ -2,7 +2,7 @@ class PolinomioMagico:
     def __init__(self, coeficientes):
         """
         Inicializa un polinomio mágico.
-        :param coeficientes: Diccionario donde las claves son los exponentes y los valores son los coeficientes.
+        Parametros coeficientes: Diccionario donde las claves son los exponentes y los valores son los coeficientes.
         """
         self.coeficientes = coeficientes
 
@@ -19,8 +19,6 @@ class PolinomioMagico:
     def restar(self, otro):
         """
         Resta otro polinomio de este polinomio.
-        :param otro: PolinomioMagico a restar.
-        :return: Nuevo PolinomioMagico con el resultado.
         """
         resultado = self.coeficientes.copy()
         for exp, coef in otro.coeficientes.items():
@@ -30,8 +28,6 @@ class PolinomioMagico:
     def dividir(self, otro):
         """
         Divide este polinomio por otro polinomio.
-        :param otro: PolinomioMagico divisor.
-        :return: Tupla con (cociente, residuo) como PolinomioMagico.
         """
         cociente = {}
         residuo = self.coeficientes.copy()
@@ -57,7 +53,6 @@ class PolinomioMagico:
     def eliminar_termino(self, exponente):
         """
         Elimina un término del polinomio.
-        :param exponente: Exponente del término a eliminar.
         """
         if exponente in self.coeficientes:
             del self.coeficientes[exponente]
@@ -65,7 +60,5 @@ class PolinomioMagico:
     def existe_termino(self, exponente):
         """
         Determina si un término específico existe en el polinomio.
-        :param exponente: Exponente del término a buscar.
-        :return: True si existe, False en caso contrario.
         """
         return exponente in self.coeficientes
