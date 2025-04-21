@@ -8,6 +8,8 @@ if __name__ == "__main__":
         [4, 5, 6],
         [7, 8, 9]
     ]
-
+    print("Matriz:")
+    for fila in matriz:
+        print(fila)
     print("Determinante (recursivo):", determinante_recursivo(matriz))
     print("Determinante (iterativo):", determinante_iterativo(matriz))

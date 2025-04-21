@@ -12,7 +12,7 @@ def main():
         elif opcion == 3:
             subprocess.run(["python", os.path.join("Ejercicio_3", "main.py")])
         elif opcion == 4:
-            print("Ejercicio 4 no implementado.")
+            subprocess.run(["python", os.path.join("Ejercicio_4", "main.py")])
         elif opcion == 0:
             print("Saliendo del programa...")
             break
