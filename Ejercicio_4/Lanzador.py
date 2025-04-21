@@ -1,7 +1,7 @@
 from Polinomio import PolinomioMagico
 
 
-def Laznador():
+def lanzador():
     p1 = PolinomioMagico({3: 4, 2: 3, 0: 2})  # 4x^3 + 3x^2 + 2
     p2 = PolinomioMagico({2:4, 1: 1, 0: 1})        # x + 1
 
@@ -22,7 +22,7 @@ def Laznador():
     print("Polinomio 1 después de eliminar x^2:", p1)
 
     # Verificar término
-    existe = p1.existe_termino(3)
+    existe = p1.existe_termino(2)
     print("¿Existe el término x^3 en Polinomio 1?", existe)
     
-Laznador()
+lanzador()
