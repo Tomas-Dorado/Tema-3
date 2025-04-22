@@ -7,12 +7,14 @@ from Nodo import Disco
 
 # Clase principal para resolver y visualizar el problema
 class HanoiGame:
+    
     def __init__(self, num_disks):
         pygame.init()
         self.screen = pygame.display.set_mode((800, 400))
         pygame.display.set_caption("Torres de Hanói")
         self.clock = pygame.time.Clock()
         self.num_disks = num_disks
+        
         self.towers = [
             Torre(200, 300),
             Torre(400, 300),
@@ -27,7 +29,7 @@ class HanoiGame:
             width = i * 20
             color = self.colors[i % len(self.colors)]
             self.towers[0].add_disk(Disco(width, color))
-
+            self.draw()
     def draw(self):
         self.screen.fill((255, 255, 255))
         for tower in self.towers:
