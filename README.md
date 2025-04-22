@@ -48,4 +48,4 @@ pip install -r
 
 A continuación, se muestra un diagrama que representa la estructura del repositorio:
 
-![Esquema del Repositorio](ruta/a/diagrama.png)
+![Esquema del Repositorio](diagram(3).png)
