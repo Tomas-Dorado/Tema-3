@@ -44,3 +44,8 @@ Para ejecutar este proyecto, necesitas instalar las dependencias listadas en el 
 pip install -r
 ```
 
+## Esquema del Repositorio
+
+A continuación, se muestra un diagrama que representa la estructura del repositorio:
+
+![Esquema del Repositorio](ruta/a/diagrama.png)
