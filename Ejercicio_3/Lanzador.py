@@ -1,3 +1,21 @@
+def mergesort(lista, clave, descendente=False):
+    if len(lista) <= 1:
+        return lista
+    medio = len(lista) // 2
+    izquierda = mergesort(lista[:medio], clave, descendente)
+    derecha = mergesort(lista[medio:], clave, descendente)
+    return merge(izquierda, derecha, clave, descendente)
+
+def merge(izquierda, derecha, clave, descendente):
+    resultado = []
+    while izquierda and derecha:
+        if (izquierda[0][clave] > derecha[0][clave] if descendente else izquierda[0][clave] < derecha[0][clave]):
+            resultado.append(izquierda.pop(0))
+        else:
+            resultado.append(derecha.pop(0))
+    resultado.extend(izquierda if izquierda else derecha)
+    return resultado
+
 def lanzador():
     naves = [
         {"nombre": "Cometa Veloz", "longitud": 120, "tripulantes": 10, "pasajeros": 50},
@@ -9,15 +27,16 @@ def lanzador():
         {"nombre": "Aurora Cósmica", "longitud": 130, "tripulantes": 7, "pasajeros": 40},
         {"nombre": "Nebulosa Andrómeda", "longitud": 200, "tripulantes": 30, "pasajeros": 60},
     ]
-
+    
     # Ordenar la lista de naves por nombre ascendente y longitud descendente
-    naves_ordenadas = sorted(naves, key=lambda x: (x["nombre"], -x["longitud"]))
+    naves_ordenadas = mergesort(naves, "longitud", descendente=True)
+    naves_ordenadas = mergesort(naves_ordenadas, "nombre")
 
     # Mostrar información de "Cometa Veloz" y "Titán del Cosmos"
     info_cometa_titan = [nave for nave in naves if nave["nombre"] in ["Cometa Veloz", "Titán del Cosmos"]]
 
     # Determinar las cinco naves con mayor cantidad de pasajeros
-    top_5_pasajeros = sorted(naves, key=lambda x: x["pasajeros"], reverse=True)[:5]
+    top_5_pasajeros = mergesort(naves, "pasajeros", descendente=True)[:5]
 
     # Determinar la nave que requiere la mayor cantidad de tripulación
     nave_mayor_tripulacion = max(naves, key=lambda x: x["tripulantes"])
