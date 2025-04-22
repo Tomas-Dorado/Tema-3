@@ -34,7 +34,8 @@ class HanoiGame:
             tower.draw(self.screen)
         self.display_move_count()  # Mostrar el contador de movimientos
         pygame.display.flip()
-
+        
+        
     def display_move_count(self):
         font = pygame.font.Font(None, 36)
         text = font.render(f"Movimientos: {self.move_count}", True, (0, 0, 0))

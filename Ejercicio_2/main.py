@@ -4,8 +4,8 @@ from Recursivo import determinante_recursivo
 
 if __name__ == "__main__":
     matriz = [
-        [2, 3, 1],
-        [4, 5, 6],
+        [5, 3, 1],
+        [4, 11, 6],
         [7, 8, 9]
     ]
     print("Matriz:")
