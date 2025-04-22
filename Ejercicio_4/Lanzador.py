@@ -5,11 +5,11 @@ def lanzador():
     p1 = PolinomioMagico({3: 4, 2: 3, 0: 2})  # 4x^3 + 3x^2 + 2
     dicc= {}
     while True:
-        exponente = int(input("Ingrese el exponente del término a agregar: "))
-        numero = int(input("Ingrese el coeficiente del término a agregar (o -1 para salir): "))
+        exponente = int(input("Ingrese el exponente del término a agregar (o -1 para salir): "))
         if exponente == -1:
             break
         else: 
+            numero = int(input("Ingrese el coeficiente del término a agregar : "))
             dicc[exponente] = numero
     p2 = PolinomioMagico(dicc) 
 
@@ -26,7 +26,7 @@ def lanzador():
     print("Residuo:", residuo)
 
     # Eliminar término
-    n= int(input("Ingrese el exponente del término a eliminar: "))
+    n= int(input("Ingrese el exponente del término a eliminar en el polinomio 1: "))
     p1.eliminar_termino(n)
     print("Polinomio 1 después de eliminar x^2:", p1)
 
